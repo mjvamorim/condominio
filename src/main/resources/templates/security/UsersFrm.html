@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+
+<section layout:fragment="conteudo">
+	<form class="form-horizontal" method="POST"
+		th:action="@{/security/users/save}" th:object="${user}">
+		<div layout:include="MensagemGeral"></div>
+		<div layout:include="MensagemErro"></div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title aw-user-panel">Formulário de Usuário</h1>
+					<a class="btn btn-link aw-link-panel" th:href="@{/security/users}">Voltar</a>
+				</div>
+			</div>
+
+			<div class="panel-body">
+				<input type="hidden" th:field="*{id}" />
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('nome')} ? has-error">
+					<label for="nome" class="col-sm-2 control-label">Nome</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="nome"
+							th:field="*{nome}" autofocus="autofocus"/>
+					</div>
+				</div>
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('cpf')} ? has-error">
+					<label for="cpf" class="col-sm-2 control-label">Cpf</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control cpf" id="cpf"
+							th:field="*{cpf}" />
+					</div>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('ident')} ? has-error">
+					<label for="ident" class="col-sm-2 control-label">Ident</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="ident"
+							th:field="*{ident}" />
+					</div>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('cep')} ? has-error">
+					<label for="cep" class="col-sm-2 control-label">Cep</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control cep" id="cep"
+							th:field="*{cep}" />
+					</div>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('endereco')} ? has-error">
+					<label for="endereco" class="col-sm-2 control-label">Endereço</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="endereco"
+							th:field="*{endereco}" />
+					</div>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('complemento')} ? has-error">
+					<label for="complemento" class="col-sm-2 control-label">Complemento</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="complemento"
+							th:field="*{complemento}" />
+					</div>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('bairro')} ? has-error">
+					<label for="bairro" class="col-sm-2 control-label">Bairro</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="bairro"
+							th:field="*{bairro}" />
+					</div>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('cidade')} ? has-error">
+					<label for="cidade" class="col-sm-2 control-label">Cidade</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="cidade"
+							th:field="*{cidade}" />
+					</div>
+				</div>
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('uf')} ? has-error">
+					<label for="uf" class="col-sm-2 control-label">UF</label>
+					<div class="col-sm-1">
+						<input type="text" class="form-control" id="uf" th:field="*{uf}" />
+					</div>
+				</div>
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('celular')} ? has-error">
+					<label for="celular" class="col-sm-2 control-label">Celular</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control phone" id="celular"
+							th:field="*{celular}" />
+					</div>
+				</div>
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('telefone')} ? has-error">
+					<label for="telefone" class="col-sm-2 control-label">Telefone</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control phone" id="telefone"
+							th:field="*{telefone}" />
+					</div>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('username')} ? has-error">
+					<label for="username" class="col-sm-2 control-label">Email</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="username"
+							th:field="*{username}" th:readonly="*{id}!=null" />
+					</div>
+				</div>
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('usernameConfirm')} ? has-error">
+					<label for="usernameConfirm" class="col-sm-2 control-label">Confirmação
+						do Email</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="usernameConfirm"
+							th:field="*{usernameConfirm}" th:readonly="*{id}!=null" />
+					</div>
+				</div>
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('password')} ? has-error">
+					<label for="password" class="col-sm-2 control-label">Senha</label>
+					<div class="col-sm-4">
+						<input type="password" class="form-control" id="password"
+							th:field="*{password}" th:readonly="*{id}!=null" />
+					</div>
+				</div>
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('passwordConfirm')} ? has-error">
+					<label for="passwordConfirm" class="col-sm-2 control-label">Confirmação
+						da Senha</label>
+					<div class="col-sm-4">
+						<input type="password" class="form-control" id="passwordConfirm"
+							th:field="*{passwordConfirm}" th:readonly="*{id}!=null" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+						<a class="btn " th:href="@{/security/users}">Voltar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</section>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+
+
+<section layout:fragment="conteudo">
+	<div layout:include="MensagemGeral"></div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="clearfix">
+				<h1 class="panel-title aw-user-panel">Usuários</h1>
+				<a class="btn btn-link aw-link-panel"
+					th:href="@{/security/users/create}">Novo Usuário</a>
+			</div>
+		</div>
+
+		<div class="panel-body">
+			<!--  
+	   		<form method="GET" id="formfiltro" class="form-horizontal" th:action="@{/security/users}" th:object="${filtro}">
+	   			<div class="form-group">
+	   				<div class="col-sm-4">
+	   		
+	   					<div class="input-group">
+	   						<input class="form-control" placeholder="Nome a procurar..."
+	   							autofocus="autofocus" th:field="*{username}"></input>
+	   		
+	   					</div>
+	   					  <div class="input-group">
+	   						<input class="form-control cpf" placeholder="Cpf a procurar..."
+	   							autofocus="autofocus" th:field="*{cpf}"></input>
+	   					</div>
+	   			
+	   					<div class="input-group">
+	   			
+	   					 			<span class="input-group-btn">
+	   							<button type="submit" class="btn btn-default">
+	   								<i class="glyphicon glyphicon-search"></i>
+	   							</button>
+	   							<button class="limpar btn btn-default "  type="reset">
+	   								<i class="glyphicon glyphicon-refresh"></i>
+	   							</button>
+	   							<script>
+	   								$('button.limpar').on('click', function() {
+	   									$('#nome').attr('value','');
+	   									$('#cpf').attr('value','');
+	   									$("#formfiltro").submit(); 
+	   								});
+	   							</script>
+	   						</span>
+	   					</div>
+	   				</div>
+	   			</div>
+	   		</form>
+	   		-->
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+
+							<th class="text-left col-md-2">Nome</th>
+							<th class="text-center col-md-1">Cpf</th>
+							<th class="text-center col-md-1">Celular</th>
+							<th class="text-center col-md-1">Permissões</th>
+							<th class="text-center col-md-1">Username</th>
+							<th class="text-center col-md-1">Tarefas</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user : ${users}">
+
+							<td th:text="${user.nome}"></td>
+							<td class="text-center" th:text="${user.cpf}"></td>
+							<td class="text-center" th:text="${user.celular}"></td>
+							<td class="text-center" th:attr="data-role=${user.id}">
+								<span th:each="r : ${user.roles}"
+								th:text="${r.name}+' '">Some name </span></td>
+							<td class="text-center" th:text="${user.username}"></td>
+							<td class="text-center">
+							
+							<a class="btn btn-link btn-xs"
+								th:href="@{/security/users/edit/{id}(id=${user.id})}"
+								title="Editar" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-pencil"></span>
+							</a> 
+							
+							<a class="btn btn-link btn-xs" data-toggle="modal"
+								data-target="#confirmacaoExclusaoModal"
+								th:attr="data-codigo=${user.id}, data-descricao=${user.nome}, data-model='security/user' "
+								title="Excluir" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-remove"></span>
+							</a> 
+							
+							<a class="btn btn-link btn-xs" data-toggle="modal"
+								data-target="#usersRolesModal"
+								th:attr="data-codigo=${user.id}, data-nome=${user.nome}, data-model='security/user' "
+								th:attrappend="data-userroles=${{user.roles}}" title="Papéis"
+								rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-user"></span>
+							</a> 
+							
+							<a class="btn btn-link btn-xs"
+								th:href="@{/security/users/login_as/{id}(id=${user.id})}"
+								title="Login As" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-log-in"></span>
+							</a> 
+							
+							<a class="btn btn-link btn-xs"
+								th:href="@{/security/changepassword/{id}(id=${user.id})}"
+								title="Zerar Senha" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-inbox"></span>
+							</a>
+							
+							</td>
+						</tr>
+						<tr>
+							<td colspan="7" th:if="${#lists.isEmpty(users)}">Nenhum
+								Usuário foi encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div layout:include="DialogoConfirmacaoExclusao"></div>
+		<div layout:include="security/UsersRolesModal"></div>
+
+	</div>
+</section>
+</html>

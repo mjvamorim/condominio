@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="LayoutPadrao">
+    
+
+
+<section layout:fragment="conteudo">
+	<div layout:include="MensagemGeral"></div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="clearfix">
+	   			<h1 class="panel-title aw-unidade-panel">Taxas</h1>
+	   			<a class="btn btn-link aw-link-panel" th:href="@{/taxas/novo}">Nova Taxa</a>
+	   		</div>
+	   	</div>
+	   	
+	   	<div class="panel-body">
+	   		<form method="GET" id="formfiltro" class="form-horizontal" th:action="@{/taxas}" th:object="${filtro}">
+	   			<div class="form-group">
+	   				<div class="col-sm-2">
+	   					<div class="input-group">
+	   						<input class="form-control" placeholder="Ano/Mês a procurar..."
+	   							autofocus="autofocus" th:field="*{anomes}"></input>
+	   					</div>
+	   					<div class="input-group">
+	   						<span class="input-group-btn">
+	   							<button type="submit" class="btn btn-default">
+	   								<i class="glyphicon glyphicon-search"></i>
+	   							</button>
+	   							<button class="limpar btn btn-default "  type="reset">
+	   								<i class="glyphicon glyphicon-refresh"></i>
+	   							</button>
+	   							<script>
+	   								$('button.limpar').on('click', function() {
+	   									$('#anomes').attr('value','');
+	   									$("#formfiltro").submit(); 
+	   								});
+	   							</script>
+	   						</span>
+	   					</div>
+	   				</div>
+	   			</div>
+	   		</form>
+	   		
+	   		<div class="table-responsive">
+		   		<table class="table table-bordered table-striped">
+		   			<thead>
+		   				<tr>
+		   					<th class="text-center col-md-1">#</th>
+		   					<th class="text-left col-md-1">Ano/Mês</th>
+		   					<th class="text-center col-md-1">valorCondominio</th>
+		   					<th class="text-center col-md-1">ValorExtra</th>
+		   					<th class="col-md-1"></th>
+		   				</tr>
+		   			</thead>
+		   			<tbody>
+		   				<tr th:each="taxa : ${taxas}">
+		   					<td class="text-center" th:text="${taxa.idTaxa}">1</td>
+		   					<td class="text-center" th:text="${taxa.anomes}">1</td>
+		   					<td th:text="${taxa.valorCondominio}"></td>
+		   					<td class="text-center" th:text="${{taxa.ValorExtra}}"></td>
+		   					<td class="text-center">
+		   						<a class="btn btn-link btn-xs" th:href="@{/taxas/{idTaxa}(idTaxa=${taxa.idTaxa})}" 
+		   								title="Editar" rel="tooltip" data-placement="top">
+		   							<span class="glyphicon glyphicon-pencil"></span>
+		   						</a>
+		   						<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
+		   								th:attr="data-codigo=${taxa.idTaxa}, data-descricao=${taxa.anomes}, data-model='taxa' "
+		   								title="Excluir" rel="tooltip" data-placement="top">
+		   							<span class="glyphicon glyphicon-remove"></span>
+		   						</a>
+		   						
+		   					</td>
+		   				</tr>
+		   				<tr>
+		   					<td colspan="6" th:if="${#lists.isEmpty(taxas)}">Nenhuma Taxa foi encontrado</td>
+		   				</tr>
+		   			</tbody>
+		   		</table>
+		   	</div>
+	   	</div>
+	   	
+	   	<div layout:include="DialogoConfirmacaoExclusao"></div>
+	   
+	   	
+	</div>
+</section>
+</html>

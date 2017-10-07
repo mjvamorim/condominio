@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="LayoutPadrao">
+
+<head>
+	<title>Cadastro de unidade</title>
+</head>
+
+<section layout:fragment="conteudo">
+    <form class="form-horizontal" method="POST" th:action="@{/unidades}" th:object="${unidade}">
+    	<div layout:include="MensagemGeral"></div>
+    	<div layout:include="MensagemErro"></div>
+    
+    	<div class="panel panel-default">
+    		<div class="panel-heading">
+    			<div class="clearfix">
+	   				<h1 class="panel-title aw-unidade-panel">Nova Unidade</h1>
+	   				<a class="btn btn-link aw-link-panel" th:href="@{/unidades}">Voltar para pesquisa</a>
+	   			</div>
+    		</div>
+    		
+    		<div class="panel-body">
+    			<input type="hidden" th:field="*{idUnidade}"/>
+    		
+				<div class="form-group" th:classappend="${#fields.hasErrors('identificacao')} ? has-error">
+					<label for="identificacao" class="col-sm-2 control-label">Identificação</label>
+					<div class="col-sm-2"> 
+						<input type="text" class="form-control" id="identificacao" th:field="*{identificacao}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('proprietario')} ? has-error">
+					<label for="proprietario" class="col-sm-2 control-label">idProprietário</label>
+					<div class="col-sm-2"> 
+						<input type="text" class="form-control number" id="proprietario" th:field="*{proprietario}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('idBoleto')} ? has-error">
+					<label for="idBoleto" class="col-sm-2 control-label">idBoleto</label>
+					<div class="col-sm-2"> 
+						<input type="text" class="form-control boleto" id="idBoleto" th:field="*{idBoleto}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('fator')} ? has-error">
+					<label for="fator" class="col-sm-2 control-label">Fator</label>
+					<div class="col-sm-2"> 
+						<input type="text" class="form-control money" id="fator" th:field="*{fator}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('obs')} ? has-error">
+					<label for="obs" class="col-sm-2 control-label">Obs</label>
+					<div class="col-sm-6"> 
+						<input type="text" class="form-control" id="obs" th:field="*{obs}"/>
+					</div>
+				</div>
+						
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</div>
+    	</div>
+    </form>
+</section>
+</html>

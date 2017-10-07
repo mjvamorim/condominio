@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="LayoutPadrao">
+
+<head>
+	<title>Cadastro de taxa</title>
+</head>
+
+<section layout:fragment="conteudo">
+    <form class="form-horizontal" method="POST" th:action="@{/taxas}" th:object="${taxa}">
+    	<div layout:include="MensagemGeral"></div>
+    	<div layout:include="MensagemErro"></div>
+    
+    	<div class="panel panel-default">
+    		<div class="panel-heading">
+    			<div class="clearfix">
+	   				<h1 class="panel-title aw-taxa-panel">Nova Taxa</h1>
+	   				<a class="btn btn-link aw-link-panel" th:href="@{/taxas}">Voltar para pesquisa</a>
+	   			</div>
+    		</div>
+    		
+    		<div class="panel-body">
+    			<input type="hidden" th:field="*{idTaxa}"/>
+    		
+				<div class="form-group" th:classappend="${#fields.hasErrors('anomes')} ? has-error">
+					<label for="anomes" class="col-sm-2 control-label">Ano/Mês</label>
+					<div class="col-sm-2"> 
+						<input type="text" class="form-control" id="anomes" th:field="*{anomes}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('valorCondominio')} ? has-error">
+					<label for="valorCondominio" class="col-sm-2 control-label">Valor Condominio</label>
+					<div class="col-sm-2"> 
+						<input type="text" class="form-control" id="valorCondominio" th:field="*{valorCondominio}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('ValorExtra')} ? has-error">
+					<label for="ValorExtra" class="col-sm-2 control-label">Valor Extra</label>
+					<div class="col-sm-2"> 
+						<input type="text" class="form-control" id="ValorExtra" th:field="*{ValorExtra}"/>
+					</div>
+				</div>
+						
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</div>
+    	</div>
+    </form>
+</section>
+</html>

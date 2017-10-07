@@ -1,0 +1,1 @@
+drop table db1.test if exists;

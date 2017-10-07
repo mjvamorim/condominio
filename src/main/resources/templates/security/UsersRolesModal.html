@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="modal fade" id="usersRolesModal" tabindex="-1">
+	<div class="modal-dialog">
+		<form id="frmUsersRolesModal" th:action="@{/security/users/permissoes/}"
+			method="get" class="js-atualizar-permissoes">
+
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Permissões</h4>
+				</div>
+
+				<div class="modal-body">
+					<span>Nome do Usuario:</span>
+				</div>
+
+				<div class="modal-hidden"></div>
+
+				<div class="modal-body">
+					<th:block th:each="role : ${allRolesDb}">
+						<input type="checkbox" th:id="'ck'+${role.id}" th:name="ck"
+							th:value="${role.id}" th:classappend="'ck'+${role.id}"
+							th:text="' '+${role.name}" />
+						<br />
+					</th:block>
+				</div>
+				<div class="modal-footer">
+					<!-- 					<input type="hidden" th:name="${_csrf.parameterName}" -->
+					<!-- 						th:value="${_csrf.token}" /> -->
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+$('#usersRolesModal').on('show.bs.modal',function(event) {
+	
+	var button = $(event.relatedTarget);
+	
+	var model = button.data('model');
+	var codigo = button.data('codigo');
+	sessionStorage.removeItem('codigo');
+	sessionStorage.setItem('codigo', codigo );
+	var nome = button.data('nome');
+	
+	
+	var modal = $(this);
+	modal.find('.modal-body span').html('Permissões de ' + ' <strong>' + nome + '</strong>:');
+	
+	var divhidden = modal.find('.modal-hidden');
+	divhidden.html('<input type="hidden" value = "'+codigo+'" />');
+ 		
+	
+	//Busca as Roles dos Usuarios passados por atributos do link anterior e converte em uma lista
+	var userRoles = button.data('userroles');
+	var userRolesLst = JSON.parse("[" + userRoles + "]");
+	
+	//Busca as roles passadas por JSON e converte um Array de Roles[id,name]
+	//<![CDATA[
+	var allRolesJs = /*[[${allRolesJs}]]*/ ;
+	console.log(allRolesJs);
+	 //]]> 
+	var allRolesLst = JSON.parse(allRolesJs);
+	
+	//Intera todas as Propriedades Existentes
+	for (var r in allRolesLst){
+		if (allRolesLst.hasOwnProperty(r)) {
+			var ck='.ck'+allRolesLst[r].id;
+			var checkbox = modal.find(ck);
+			id = parseInt(allRolesLst[r].id);
+			//Caso o usuario possua a propriedade marca ela
+			if (userRolesLst.indexOf(id) > -1 ) {
+				console.log('Achou');
+				checkbox.prop("checked",true);	
+			} else {
+				console.log('Não Achou');
+				checkbox.prop("checked",false);	
+			}
+		}
+	}
+		
+});
+
+$(function() {	
+	$('.js-atualizar-permissoes').on('submit', function(event) {
+		
+		event.preventDefault();
+		
+		var fmodal = $('#usersRolesModal');
+		var form = $('#frmUsersRolesModal');
+		console.log(form);
+		var codigo = JSON.parse(sessionStorage.getItem('codigo'));
+		console.log(codigo)
+		var action = form.attr('action');
+		var tam = action.length-1;
+		for(var i = tam; i > 0; i--) {
+			if (action.charAt(i)=="/") {
+			    break;
+			}
+		}		
+
+		action = action.substr(0,i+1) + codigo;
+		console.log(action);
+		form.attr('action', action );
+		var response = $.ajax({
+	        url: form.attr('action'),
+	        data: form.serializeArray(),
+	        type: form.method
+		});
+
+		response.done(function(userRolesJs) {
+			console.log('Deu certo: '+codigo);
+			console.log('Retorno: '+userRolesJs);
+			fmodal.modal('toggle'); 
+			window.location.replace("/security/users/"); 
+
+			//$('[data-role=' + codigo + ']').html('<span class="label label-success">' + retorno + '</span>');
+				
+		});
+
+		response.fail(function(retorno) {
+			alert('Erro: '+retorno);
+		});
+	});
+});
+
+</script>
+</html>

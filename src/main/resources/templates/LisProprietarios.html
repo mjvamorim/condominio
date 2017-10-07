@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="LayoutPadrao">
+    
+
+
+<section layout:fragment="conteudo">
+	<div layout:include="MensagemGeral"></div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="clearfix">
+	   			<h1 class="panel-title aw-proprietario-panel">Proprietários</h1>
+	   			<a class="btn btn-link aw-link-panel" th:href="@{/proprietarios/novo}">Novo Proprietário</a>
+	   		</div>
+	   	</div>
+	   	
+	   	<div class="panel-body">
+	   		<form method="GET" id="formfiltro" class="form-horizontal" th:action="@{/proprietarios}" th:object="${filtro}">
+	   			<div class="form-group">
+	   				<div class="col-sm-2">
+	   					<div class="input-group">
+	   						<input class="form-control" placeholder="Nome a procurar..."
+	   							autofocus="autofocus" th:field="*{nome}"></input>
+	   					</div>
+	   					<div class="input-group">
+	   						<input class="form-control cpf" placeholder="Cpf a procurar..."
+	   							autofocus="autofocus" th:field="*{cpf}"></input>
+	   					</div>
+	   					<div class="input-group">
+	   						<span class="input-group-btn">
+	   							<button type="submit" class="btn btn-default">
+	   								<i class="glyphicon glyphicon-search"></i>
+	   							</button>
+	   							<button class="limpar btn btn-default "  type="reset">
+	   								<i class="glyphicon glyphicon-refresh"></i>
+	   							</button>
+	   							<script>
+	   								$('button.limpar').on('click', function() {
+	   									$('#nome').attr('value','');
+	   									$('#cpf').attr('value','');
+	   									$("#formfiltro").submit(); 
+	   								});
+	   							</script>
+	   						</span>
+	   					</div>
+	   				</div>
+	   			</div>
+	   		</form>
+	   		
+	   		<div class="table-responsive">
+		   		<table class="table table-bordered table-striped">
+		   			<thead>
+		   				<tr>
+		   					<th class="text-center col-md-1">#</th>
+		   					<th class="text-left col-md-2">Nome</th>
+		   					<th class="text-center col-md-1">Cpf</th>
+		   					<th class="text-center col-md-1">Celular</th>
+		   					<th class="text-center col-md-1">Telefone</th>
+		   					<th class="text-center col-md-1">Email</th>
+		   					<th class="text-center col-md-1">Unidades</th>
+		   					<th class="col-md-1"></th>
+		   				</tr>
+		   			</thead>
+		   			<tbody>
+		   				<tr th:each="proprietario : ${proprietarios}">
+		   					<td class="text-center" th:text="${proprietario.idProprietario}">1</td>
+		   					<td th:text="${proprietario.nome}"></td>
+		   					<td class="text-center" th:text="${{proprietario.cpf}}"></td>
+		   					<td class="text-center" th:text="| ${{proprietario.celular}}|"></td>
+		   					<td class="text-center" th:text="| ${{proprietario.telefone}}|"></td>
+		   					<td class="text-center" th:text="| ${{proprietario.email}}|"></td>
+		   					<td class="text-center" th:text="| ${{proprietario.unidades}}|"></td>
+		   					<td class="text-center">
+		   						<a class="btn btn-link btn-xs" th:href="@{/proprietarios/{idProprietario}(idProprietario=${proprietario.idProprietario})}" 
+		   								title="Editar" rel="tooltip" data-placement="top">
+		   							<span class="glyphicon glyphicon-pencil"></span>
+		   						</a>
+		   						<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
+		   								th:attr="data-codigo=${proprietario.idProprietario}, data-descricao=${proprietario.nome}, data-model='proprietario' "
+		   								title="Excluir" rel="tooltip" data-placement="top">
+		   							<span class="glyphicon glyphicon-remove"></span>
+		   						</a>
+		   						
+		   					</td>
+		   				</tr>
+		   				<tr>
+		   					<td colspan="6" th:if="${#lists.isEmpty(proprietarios)}">Nenhum Proprietário foi encontrado</td>
+		   				</tr>
+		   			</tbody>
+		   		</table>
+		   	</div>
+	   	</div>
+	   	
+	   	<div layout:include="DialogoConfirmacaoExclusao"></div>
+	   
+	   	
+	</div>
+</section>
+</html>
