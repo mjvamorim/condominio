@@ -17,6 +17,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+
 @Configuration
 public class HibernateConfig {
 
@@ -32,6 +33,7 @@ public class HibernateConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
 			MultiTenantConnectionProvider multiTenantConnectionProviderImpl,
 			CurrentTenantIdentifierResolver currentTenantIdentifierResolverImpl) {
+
 		Map<String, Object> properties = new HashMap<>();
 		properties.putAll(jpaProperties.getHibernateProperties(dataSource));
 		properties.put(Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA);
@@ -45,4 +47,6 @@ public class HibernateConfig {
 		em.setJpaPropertyMap(properties);
 		return em;
 	}
+
+
 }

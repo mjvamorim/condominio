@@ -9,7 +9,7 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.cfg.ImprovedNamingStrategy;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.springframework.beans.BeanUtils;
@@ -28,10 +28,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MyUtils {
-	
+
 	private static GlobalProperties global;
-	
-	
+
+
     @Autowired
     private GlobalProperties tGlobal;
 
@@ -47,8 +47,8 @@ public class MyUtils {
 			String url = global.getUrl();
 			url = url.replaceAll("dbx", tenantDb);
 			System.out.println(url);
-			
-			DataSource ds = new DataSource();
+
+			BasicDataSource ds = new BasicDataSource();
 			ds.setDriverClassName(global.getDriverClassName());
 			ds.setUrl(url);
 			ds.setUsername(global.getUsername());
@@ -71,12 +71,12 @@ public class MyUtils {
 	public static void exportDDL() {
 		try {
 			System.out.println(global.toString());
-			
+
 			SchemaExport schema = new SchemaExport(getConfiguration());
 			schema.setDelimiter(";");
 			schema.setHaltOnError(false);
 			schema.setFormat(true);
-			Resource fileSchema = new ClassPathResource("scripts/schema-export.sql");		
+			Resource fileSchema = new ClassPathResource("scripts/schema-export.sql");
 
 			schema.setOutputFile(fileSchema.getFile().getPath());
 			schema.execute(true, false, false, true);

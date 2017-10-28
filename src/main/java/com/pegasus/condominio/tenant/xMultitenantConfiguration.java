@@ -19,19 +19,19 @@ package com.pegasus.condominio.tenant;
 //import com.pegasus.condominio.config.GlobalProperties;
 //
 //import javax.persistence.EntityManagerFactory;
-//import javax.sql.DataSource;
+//import org.apache.tomcat.jdbc.pool.DataSource;
 //import java.util.*;
 //
 //@Configuration
 //@EnableJpaRepositories(
-//		entityManagerFactoryRef = "entityManagerFactory", 
+//		entityManagerFactoryRef = "entityManagerFactory",
 //		transactionManagerRef = "transactionManager",
 //		basePackages = { "com.pegasus.condominio" })
 //public class MultitenantConfiguration {
 //
 //	@Autowired
 //	private DataSourceProperties properties;
-//	
+//
 //    @Autowired
 //    private GlobalProperties global;
 //
@@ -39,7 +39,7 @@ package com.pegasus.condominio.tenant;
 //	 * Defines the data source for the application
 //	 * @return
 //	 */
-//	@Bean(name="dataSource")  
+//	@Bean(name="dataSource")
 //	@ConfigurationProperties(prefix = "spring.datasource")
 //	public DataSource dataSource() {
 //		//File[] files = Paths.get("tenants").toFile().listFiles();
@@ -62,12 +62,12 @@ package com.pegasus.condominio.tenant;
 ////				.url(tenantProperties.getProperty("spring.datasource.url"))
 ////				.username(tenantProperties.getProperty("spring.datasource.username"))
 ////				.password(tenantProperties.getProperty("spring.datasource.password"));
-//				
+//
 //				//String url = "jdbc:mysql://localhost:3306/"+tenantDb+"?createDatabaseIfNotExist=true";
 //				String url = global.getUrl();
 //				url = url.replaceAll("dbx", tenantDb);
 //				System.out.println(url);
-//				
+//
 //				dataSourceBuilder.driverClassName(properties.getDriverClassName())
 //				.url(url)
 //				.username(global.getUsername())
