@@ -43,7 +43,7 @@ public class Titulo {
 	private BigDecimal valor;
 	
 	@Enumerated(EnumType.STRING)
-	private StatusTitulo status;
+	private TipoBaixa baixa;
 
 	public Long getCodigo() {
 		return codigo;
@@ -77,16 +77,16 @@ public class Titulo {
 		this.valor = valor;
 	}
 
-	public StatusTitulo getStatus() {
-		return status;
+	public TipoBaixa getBaixa() {
+		return baixa;
 	}
 
-	public void setStatus(StatusTitulo status) {
-		this.status = status;
+	public void setBaixa(TipoBaixa baixa) {
+		this.baixa = baixa;
 	}
 	
-	public boolean isPendente() {
-		return StatusTitulo.PENDENTE.equals(this.status);
+	public boolean isCaixa() {
+		return TipoBaixa.CAIXA.equals(this.baixa);
 	}
 
 	@Override

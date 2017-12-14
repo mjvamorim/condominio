@@ -27,21 +27,21 @@
 				<div class="form-group" th:classappend="${#fields.hasErrors('anomes')} ? has-error">
 					<label for="anomes" class="col-sm-2 control-label">Ano/Mês</label>
 					<div class="col-sm-2"> 
-						<input type="text" class="form-control" id="anomes" th:field="*{anomes}"/>
+						<input type="text" class="form-control anomes" placeholder="AAAA-MM" id="anomes" th:field="*{anomes}"/>
 					</div>
 				</div>
 				
 				<div class="form-group" th:classappend="${#fields.hasErrors('valorCondominio')} ? has-error">
 					<label for="valorCondominio" class="col-sm-2 control-label">Valor Condominio</label>
 					<div class="col-sm-2"> 
-						<input type="text" class="form-control" id="valorCondominio" th:field="*{valorCondominio}"/>
+						<input type="text" class="form-control js-currency" id="valorCondominio" th:field="*{valorCondominio}"/>
 					</div>
 				</div>
 				
 				<div class="form-group" th:classappend="${#fields.hasErrors('ValorExtra')} ? has-error">
 					<label for="ValorExtra" class="col-sm-2 control-label">Valor Extra</label>
 					<div class="col-sm-2"> 
-						<input type="text" class="form-control" id="ValorExtra" th:field="*{ValorExtra}"/>
+						<input type="text" class="form-control js-currency" id="ValorExtra" th:field="*{ValorExtra}"/>
 					</div>
 				</div>
 						

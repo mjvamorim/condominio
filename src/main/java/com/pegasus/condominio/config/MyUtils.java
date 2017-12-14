@@ -9,7 +9,7 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
 
-import org.apache.commons.dbcp2.BasicDataSource;
+
 import org.hibernate.cfg.ImprovedNamingStrategy;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.springframework.beans.BeanUtils;
@@ -21,6 +21,7 @@ import org.springframework.context.annotation.ClassPathScanningCandidateComponen
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
@@ -48,14 +49,13 @@ public class MyUtils {
 			url = url.replaceAll("dbx", tenantDb);
 			System.out.println(url);
 
-			BasicDataSource ds = new BasicDataSource();
+			DriverManagerDataSource ds = new DriverManagerDataSource();
 			ds.setDriverClassName(global.getDriverClassName());
 			ds.setUrl(url);
 			ds.setUsername(global.getUsername());
 			ds.setPassword(global.getPassword());
 
 			Resource initSchema = new ClassPathResource("scripts/schema-export.sql");
-			//Resource initData = new ClassPathResource("scripts/data.sql");
 			DatabasePopulator databasePopulator = new ResourceDatabasePopulator(initSchema);
 
 
@@ -103,7 +103,7 @@ public class MyUtils {
 		cfg.setProperty("hibernate.dialect", global.getDialect());
 		cfg.setProperty("hibernate.show_sql", "true");
 		cfg.setProperty("hibernate.format_sql", "true");
-		cfg.setProperty("org.hibernate.tool.hbm2ddl", global.getDllAuto());
+		//cfg.setProperty("org.hibernate.tool.hbm2ddl", global.getDllAuto());
 		cfg.setProperty("spring.jpa.hibernate.ddl-auto", global.getDllAuto());
 
 		cfg.setProperty("hibernate.connection.url", global.getUrl());

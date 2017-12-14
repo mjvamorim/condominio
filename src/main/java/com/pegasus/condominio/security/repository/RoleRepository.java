@@ -1,6 +1,5 @@
 package com.pegasus.condominio.security.repository;
 
-import java.util.ArrayList;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;

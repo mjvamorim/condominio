@@ -12,18 +12,18 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<div class="clearfix">
-	   			<h1 class="panel-title aw-unidade-panel">Unidades</h1>
-	   			<a class="btn btn-link aw-link-panel" th:href="@{/unidades/novo}">Nova Unidade</a>
+	   			<h1 class="panel-title aw-cobranca-panel">Cobrancas</h1>
+	   			<a class="btn btn-link aw-link-panel" th:href="@{/cobrancas/novo}">Nova Cobranca</a>
 	   		</div>
 	   	</div>
 	   	
 	   	<div class="panel-body">
-	   		<form method="GET" id="formfiltro" class="form-horizontal" th:action="@{/unidades}" th:object="${filtro}">
+	   		<form method="GET" id="formfiltro" class="form-horizontal" th:action="@{/cobrancas}" th:object="${filtro}">
 	   			<div class="form-group">
 	   				<div class="col-sm-2">
 	   					<div class="input-group">
-	   						<input class="form-control" placeholder="Identificacao a procurar..."
-	   							autofocus="autofocus" th:field="*{identificacao}"></input>
+	   						<input class="form-control" placeholder="Unidade a procurar..."
+	   							autofocus="autofocus" th:field="*{unidade}"></input>
 	   					</div>
 	   					<div class="input-group">
 	   						<span class="input-group-btn">
@@ -58,19 +58,19 @@
 		   				</tr>
 		   			</thead>
 		   			<tbody>
-		   				<tr th:each="unidade : ${unidades}">
-		   					<td class="text-center" th:text="${unidade.idUnidade}">1</td>
-		   					<td class="text-center" th:text="${unidade.identificacao}">1</td>
-		   					<td th:text="${unidade.proprietario.nome}"></td>
-		   					<td class="text-center" th:text="${unidade.fator}">1</td>
-		   					<td class="text-center" th:text="| ${{unidade.obs}}|"></td>
+		   				<tr th:each="cobranca : ${cobrancas}">
+		   					<td class="text-center" th:text="${cobranca.idCobranca}">1</td>
+		   					<td class="text-center" th:text="${cobranca.identificacao}">1</td>
+		   					<td th:text="${cobranca.proprietario.nome}"></td>
+		   					<td class="text-center" th:text="${cobranca.fator}">1</td>
+		   					<td class="text-center" th:text="| ${{cobranca.obs}}|"></td>
 		   					<td class="text-center">
-		   						<a class="btn btn-link btn-xs" th:href="@{/unidades/{idUnidade}(idUnidade=${unidade.idUnidade})}" 
+		   						<a class="btn btn-link btn-xs" th:href="@{/cobrancas/{idCobranca}(idCobranca=${cobranca.idCobranca})}" 
 		   								title="Editar" rel="tooltip" data-placement="top">
 		   							<span class="glyphicon glyphicon-pencil"></span>
 		   						</a>
 		   						<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
-		   								th:attr="data-codigo=${unidade.idUnidade}, data-descricao=${unidade.identificacao}, data-model='unidade' "
+		   								th:attr="data-codigo=${cobranca.idCobranca}, data-descricao=${cobranca.identificacao}, data-model='cobranca' "
 		   								title="Excluir" rel="tooltip" data-placement="top">
 		   							<span class="glyphicon glyphicon-remove"></span>
 		   						</a>
@@ -78,7 +78,7 @@
 		   					</td>
 		   				</tr>
 		   				<tr>
-		   					<td colspan="6" th:if="${#lists.isEmpty(unidades)}">Nenhuma Unidade foi encontrado</td>
+		   					<td colspan="6" th:if="${#lists.isEmpty(cobrancas)}">Nenhuma Cobranca foi encontrado</td>
 		   				</tr>
 		   			</tbody>
 		   		</table>

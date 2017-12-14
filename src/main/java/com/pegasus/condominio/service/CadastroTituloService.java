@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.pegasus.condominio.model.StatusTitulo;
+import com.pegasus.condominio.model.TipoBaixa;
 import com.pegasus.condominio.model.Titulo;
 import com.pegasus.condominio.repository.Titulos;
 import com.pegasus.condominio.repository.filter.TituloFilter;
@@ -31,10 +31,10 @@ public class CadastroTituloService {
 
 	public String receber(Long codigo) {
 		Titulo titulo = titulos.findOne(codigo);
-		titulo.setStatus(StatusTitulo.RECEBIDO);
+		titulo.setBaixa(TipoBaixa.BANCO);
 		titulos.save(titulo);
 		
-		return StatusTitulo.RECEBIDO.getDescricao();
+		return TipoBaixa.BANCO.getDescricao();
 	}
 	
 	public List<Titulo> filtrar(TituloFilter filtro) {

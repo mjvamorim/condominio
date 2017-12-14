@@ -5,24 +5,24 @@
     layout:decorator="LayoutPadrao">
 
 <head>
-	<title>Cadastro de unidade</title>
+	<title>Cadastro de cobranca</title>
 </head>
 
 <section layout:fragment="conteudo">
-    <form class="form-horizontal" method="POST" th:action="@{/unidades}" th:object="${unidade}">
+    <form class="form-horizontal" method="POST" th:action="@{/cobrancas}" th:object="${cobranca}">
     	<div layout:include="MensagemGeral"></div>
     	<div layout:include="MensagemErro"></div>
     
     	<div class="panel panel-default">
     		<div class="panel-heading">
     			<div class="clearfix">
-	   				<h1 class="panel-title aw-unidade-panel">Nova Unidade</h1>
-	   				<a class="btn btn-link aw-link-panel" th:href="@{/unidades}">Voltar para pesquisa</a>
+	   				<h1 class="panel-title aw-cobranca-panel">Nova Cobranca</h1>
+	   				<a class="btn btn-link aw-link-panel" th:href="@{/cobrancas}">Voltar para pesquisa</a>
 	   			</div>
     		</div>
     		
     		<div class="panel-body">
-    			<input type="hidden" th:field="*{idUnidade}"/>
+    			<input type="hidden" th:field="*{idCobranca}"/>
     		
 				<div class="form-group" th:classappend="${#fields.hasErrors('identificacao')} ? has-error">
 					<label for="identificacao" class="col-sm-2 control-label">Identificação</label>

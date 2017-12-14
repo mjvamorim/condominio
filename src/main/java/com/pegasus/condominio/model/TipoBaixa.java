@@ -1,13 +1,13 @@
 package com.pegasus.condominio.model;
 
-public enum StatusTitulo {
+public enum TipoBaixa{
 
-	PENDENTE("Pendente"),
-	RECEBIDO("Recebido");
+	CAIXA("Caixa"),
+	BANCO("Banco");
 	
 	private String descricao;
 	
-	StatusTitulo(String descricao) {
+	TipoBaixa(String descricao) {
 		this.descricao = descricao;
 	}
 	

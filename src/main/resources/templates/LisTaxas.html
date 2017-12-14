@@ -60,7 +60,7 @@
 		   				<tr th:each="taxa : ${taxas}">
 		   					<td class="text-center" th:text="${taxa.idTaxa}">1</td>
 		   					<td class="text-center" th:text="${taxa.anomes}">1</td>
-		   					<td th:text="${taxa.valorCondominio}"></td>
+		   					<td class="text-center" th:text="${{taxa.ValorCondominio}}"></td>
 		   					<td class="text-center" th:text="${{taxa.ValorExtra}}"></td>
 		   					<td class="text-center">
 		   						<a class="btn btn-link btn-xs" th:href="@{/taxas/{idTaxa}(idTaxa=${taxa.idTaxa})}" 

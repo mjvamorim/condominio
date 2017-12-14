@@ -70,9 +70,11 @@ public class UserServiceImpl implements UserService {
 	public void useDb(User user) {
 		String tenant = "db"+user.getId();
 		TenantContext.setCurrentTenant(tenant);
-		System.out.println(tenant);		
+		System.out.println(tenant);
 		MyUtils.exportDDL();
 		MyUtils.createDB(tenant);;
+		System.out.println(tenant);
+			
 
 	}
 }

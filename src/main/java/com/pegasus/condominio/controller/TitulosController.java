@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.pegasus.condominio.model.StatusTitulo;
+import com.pegasus.condominio.model.TipoBaixa;
 import com.pegasus.condominio.model.Titulo;
 import com.pegasus.condominio.repository.filter.TituloFilter;
 import com.pegasus.condominio.service.CadastroTituloService;
@@ -84,8 +84,8 @@ public class TitulosController {
 	}
 
 	@ModelAttribute("todosStatusTitulo")
-	public List<StatusTitulo> todosStatusTitulo() {
-		return Arrays.asList(StatusTitulo.values());
+	public List<TipoBaixa> todosStatusTitulo() {
+		return Arrays.asList(TipoBaixa.values());
 	}
 
 }

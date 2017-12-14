@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pegasus.condominio.model.Unidade;
+import com.pegasus.condominio.repository.Proprietarios;
 import com.pegasus.condominio.repository.Unidades;
 import com.pegasus.condominio.repository.filter.UnidadeFilter;
 
@@ -26,6 +27,8 @@ public class UnidadeController {
 	@Autowired
 	private Unidades unidades;
 	
+	@Autowired
+	private Proprietarios proprietarios;
 	
 	//Listar
 	@RequestMapping()
@@ -43,6 +46,7 @@ public class UnidadeController {
 	public ModelAndView novo() {
 		ModelAndView mv = new ModelAndView(FRM);
 		mv.addObject(new Unidade());
+		mv.addObject("proprietarios",proprietarios.findAll());
 		return mv;
 	}
 	
@@ -68,6 +72,7 @@ public class UnidadeController {
 	public ModelAndView edicao(@PathVariable("idUnidade") Unidade unidade) {
 		ModelAndView mv = new ModelAndView(FRM); 
 		mv.addObject(unidade);
+		mv.addObject("proprietarios",proprietarios.findAll());
 		return mv;
 	}
 	

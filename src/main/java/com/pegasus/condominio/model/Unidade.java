@@ -27,8 +27,6 @@ public class Unidade {
 	@Size(max=10, message="Identificação não pode conter mais de 10 caracteres")
 	private String identificacao;
 	
-	private Long idBoleto;
-	
 	private Double fator;
 	
 	@Size(max=200, message="Observação não pode conter mais de 200 caracteres")
@@ -51,13 +49,6 @@ public class Unidade {
 		this.identificacao = identificacao;
 	}
 
-	public Long getIdBoleto() {
-		return idBoleto;
-	}
-
-	public void setIdBoleto(Long idBoleto) {
-		this.idBoleto = idBoleto;
-	}
 
 	public Double getFator() {
 		return fator;

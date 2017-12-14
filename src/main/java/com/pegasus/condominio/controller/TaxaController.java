@@ -56,7 +56,7 @@ public class TaxaController {
 		try {
 			this.taxas.save(taxa);
 			attributes.addFlashAttribute("mensagem", "Taxa salva com sucesso!");
-			return "redirect:/taxas/novo";
+			return "redirect:/taxas";
 		} catch (IllegalArgumentException e) {
 			errors.rejectValue("dataVencimento", null, e.getMessage());
 			return FRM;
